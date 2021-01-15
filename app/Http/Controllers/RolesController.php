@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Role;
-use App\Status;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRoleRequest;
 
 class RolesController extends Controller
 {
@@ -36,12 +36,9 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
-        $this->validate($request,
-            ['name' => 'required'],
-            ['name.required' => 'Name is required!']
-        );
+        $validated = $request->validated();
 
         $role = new Role;
         $role->name = $request->input('name');
@@ -80,13 +77,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRoleRequest $request, $id)
     {
-        $this->validate($request,
-            ['name' => 'required'],
-            ['name.required' => 'Name is required!']
-        );
-
+        $validated = $request->validated();
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
