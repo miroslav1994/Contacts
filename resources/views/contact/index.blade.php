@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1 style="text-align:center;">Users</h1>
+        <h1 style="text-align:center;">Contacts</h1>
         <br /><br />
-        <a href="/users/create" class="btn btn-primary" style="float:right;"> Add the user</a>
+        <a href="/contacts/create" class="btn btn-primary" style="float:right;"> Add the contact</a>
         <br />
         <br />
         <br />
@@ -12,27 +12,27 @@
             <tr>
                 <th style="width:5% !important; text-align:center;">ID</th>
                 <th style="width:10% !important; text-align:center;">Name</th>
-                <th style="width:12% !important; text-align:center;">Email</th>
-                <th style="width:10% !important; text-align:center;">Role</th>
+                <th style="width:12% !important; text-align:center;">Phone type</th>
+                <th style="width:10% !important; text-align:center;">Phone</th>
                 <th style="width:20% !important; text-align:center;">Edit</th>
                 <th style="width:20% !important; text-align:center;">Delete</th>
             </tr>
-            @foreach ($users as $user)
+            @foreach ($contacts as $contact)
             <?php
 
 
             ?>
                 <tr>
-                    <td style="width:5% !important">{{$user->id}}</td>
-                    <td style="width:10% !important">{{$user->name}}</td>
-                    <td style="width:12% !important">{{$user->email}}</td>
-                    <td style="width:10% !important">{{$user->roles->name}}</td>
+                    <td style="width:5% !important">{{$contact->id}}</td>
+                    <td style="width:10% !important">{{$contact->name}}</td>
+                    <td style="width:12% !important">{{$contact->phone_type_id}}</td>
+                    <td style="width:10% !important">{{$contact->phone}}</td>
                     <td style="width:30% !important">
-                        <a href="/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
+                        <a href="/contacts/{{$contact->id}}/edit" class="btn btn-default">Edit</a><br />
 
                     </td>
                     <td style="width:30% !important">
-                        <form action="/users/{{$user->id}}" method="POST">
+                        <form action="/users/{{$contact->id}}" method="POST">
                             {{ method_field('DELETE') }}
                             {!! csrf_field() !!}
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -41,7 +41,7 @@
                 </tr>
             @endforeach
         </table>
-        {{ $users->links() }}
+        {{ $contacts->links() }}
     </div>
 
 

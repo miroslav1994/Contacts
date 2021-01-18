@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+
     <style>
         body {
             font-family: "Lato", sans-serif;
@@ -58,7 +59,46 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<script>
+    $( document ).ready(function() {
+        function fieldModel(){
+            var self = this;
+            var noTracker = 1;
+            self.myFieldList2 = ko.observableArray([
+                {label_pt : "Phone type 1", phone_type:"phone_type1",
+                 label_p : "Phone 1", phone:"phone1"}]);
+            self.myFieldList = ko.observableArray([
+                {label_fn : "First name 1", fname : "first_name1",
+                 label_ln : "Last name 1",  lname:"last_name1", foreach: self.myFieldList2
+                }]);
+
+            self.removeField = function(dynamicField){
+                self.myFieldList.remove(dynamicField);
+            }
+            self.removeField2 = function(dynamicField){
+                self.myFieldList2.remove(dynamicField);
+            }
+
+            self.addField = function() {
+                noTracker++;
+                self.myFieldList.push({label_fn : "First name "+ noTracker, fname : "first_name"+ noTracker,
+                    label_ln : "Last name " + noTracker, lname : "last_name"+ noTracker,
+                    label_pt : "Phone type " + noTracker, phone_type:"phone_type"+noTracker,
+                    label_p : "Phone " + noTracker, phone:"p" + noTracker });
+            }
+            self.addField2 = function() {
+                noTracker++;
+                self.myFieldList2.push({
+                    label_pt : "Phone type " + noTracker, phone_type:"phone_type"+noTracker,
+                    label_p : "Phone " + noTracker, phone:"p" + noTracker });
+            }
+        }
+        ko.applyBindings(fieldModel);
+    });
+
+</script>
 <body>
     <div id="app">
         @include('inc.navbar')

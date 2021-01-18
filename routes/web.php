@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::resource('roles', 'RolesController');
 Route::resource('users', 'UsersController');
 Route::resource('phone_types', 'PhoneTypesController');
+Route::resource('contacts', 'ContactsController');
 
 Auth::routes();
 
