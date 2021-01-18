@@ -27,6 +27,7 @@
             </ul>
             <ul class="nav navbar-nav">
             <li class="" style="{{$display_nav}}"><a href="/roles">Roles</a></li>
+            <li class="" style="{{$display_nav}}"><a href="/phone_types">Phone Types</a></li>
             <li class="" style="{{$display_nav}}"><a href="/users">Users</a></li>
             <li><a href="/contacts">Contacts</a></li>
             </ul>
