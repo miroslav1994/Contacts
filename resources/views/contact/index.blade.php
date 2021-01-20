@@ -11,7 +11,8 @@
         <table class="table table-striped table-hover" style="text-align:center;width:100%; ">
             <tr>
                 <th style="width:5% !important; text-align:center;">ID</th>
-                <th style="width:10% !important; text-align:center;">Name</th>
+                <th style="width:10% !important; text-align:center;">First Name</th>
+                <th style="width:10% !important; text-align:center;">Last Name</th>
                 <th style="width:12% !important; text-align:center;">Phone type</th>
                 <th style="width:10% !important; text-align:center;">Phone</th>
                 <th style="width:20% !important; text-align:center;">Edit</th>

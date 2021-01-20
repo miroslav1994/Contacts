@@ -63,39 +63,64 @@
 
 <script>
     $( document ).ready(function() {
-        function fieldModel(){
+        var initialData = [
+            { firstName: "", lastName: "", phones: [
+                    { type: "", number: "" },
+                    { type: "", number: ""}]
+            }
+
+        ];
+
+        var ContactsModel = function(contacts) {
             var self = this;
-            var noTracker = 1;
-            self.myFieldList2 = ko.observableArray([
-                {label_pt : "Phone type 1", phone_type:"phone_type1",
-                 label_p : "Phone 1", phone:"phone1"}]);
-            self.myFieldList = ko.observableArray([
-                {label_fn : "First name 1", fname : "first_name1",
-                 label_ln : "Last name 1",  lname:"last_name1", foreach: self.myFieldList2
-                }]);
+            self.contacts = ko.observableArray(ko.utils.arrayMap(contacts, function(contact) {
+                return { firstName: contact.firstName, lastName: contact.lastName, phones: ko.observableArray(contact.phones) };
+            }));
 
-            self.removeField = function(dynamicField){
-                self.myFieldList.remove(dynamicField);
-            }
-            self.removeField2 = function(dynamicField){
-                self.myFieldList2.remove(dynamicField);
-            }
+            self.addContact = function() {
+                self.contacts.push({
+                    firstName: "",
+                    lastName: "",
+                    phones: ko.observableArray()
+                });
+            };
 
-            self.addField = function() {
-                noTracker++;
-                self.myFieldList.push({label_fn : "First name "+ noTracker, fname : "first_name"+ noTracker,
-                    label_ln : "Last name " + noTracker, lname : "last_name"+ noTracker,
-                    label_pt : "Phone type " + noTracker, phone_type:"phone_type"+noTracker,
-                    label_p : "Phone " + noTracker, phone:"p" + noTracker });
-            }
-            self.addField2 = function() {
-                noTracker++;
-                self.myFieldList2.push({
-                    label_pt : "Phone type " + noTracker, phone_type:"phone_type"+noTracker,
-                    label_p : "Phone " + noTracker, phone:"p" + noTracker });
-            }
-        }
-        ko.applyBindings(fieldModel);
+            self.removeContact = function(contact) {
+                self.contacts.remove(contact);
+            };
+
+            self.addPhone = function(contact) {
+                contact.phones.push({
+                    type: "",
+                    number: ""
+                });
+            };
+
+            self.removePhone = function(phone) {
+                $.each(self.contacts(), function() { this.phones.remove(phone) })
+            };
+
+            self.save = function() {
+                self.lastSavedJson(JSON.stringify(ko.toJS(self.contacts), null, 2));
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/postajaxContacts',
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {_token: CSRF_TOKEN, contacts:JSON.stringify(ko.toJS(self.contacts)),  message:$(".getinfo").val()},
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (data) {
+                        $(".writeinfo").append(data.msg);
+                    }
+                });
+            };
+
+            self.lastSavedJson = ko.observable("")
+        };
+
+        ko.applyBindings(new ContactsModel(initialData));
     });
 
 </script>

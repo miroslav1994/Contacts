@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\PhoneType;
+use App\Models\ContactsPhone;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -38,7 +39,25 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $array_contacts = json_decode($request->input('contacts'));
+        foreach($array_contacts as $contact) {
+
+            $contact_new = new Contact;
+            $contact_new->first_name = $contact->firstName;
+            $contact_new->last_name = $contact->lastName;
+            $contact_new->save();
+
+            for($i = 0;$i<count($contact->phones); $i++) {
+                $contact_phone = new ContactsPhone();
+                $contact_phone->contact_id = $contact_new->id;
+                $contact_phone->phone_type_id = $contact->phones[$i]->type;
+                $contact_phone->phone = $contact->phones[$i]->number;
+                $contact_phone->save();
+            }
+        }
+
+
+        return redirect('/contacts')->with('success', 'Action is performed successfully!');
     }
 
     /**
