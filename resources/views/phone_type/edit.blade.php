@@ -14,6 +14,7 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{$phone_type->name}}">
+                    <input type="hidden" value="{{ $phone_type->id }}" name="phone_type">
                 </div>
                 <div style="text-align:center;">
                     <button type="submit" id="addPhoneTypes" class="btn btn-success">Save</button>

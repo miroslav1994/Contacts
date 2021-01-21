@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PhoneType;
-use App\Role;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePhoneTypeRequest;
 

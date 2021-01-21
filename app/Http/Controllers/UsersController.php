@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
 

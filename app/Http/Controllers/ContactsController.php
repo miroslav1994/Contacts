@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\PhoneType;
-use App\Models\ContactsPhone;
+use App\Models\Phone;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -48,7 +48,7 @@ class ContactsController extends Controller
             $contact_new->save();
 
             for($i = 0;$i<count($contact->phones); $i++) {
-                $contact_phone = new ContactsPhone();
+                $contact_phone = new Phone();
                 $contact_phone->contact_id = $contact_new->id;
                 $contact_phone->phone_type_id = $contact->phones[$i]->type;
                 $contact_phone->phone = $contact->phones[$i]->number;

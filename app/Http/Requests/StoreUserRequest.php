@@ -23,9 +23,11 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->request->get('user_id');
+
         return [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email'.$id,
             'password' => 'required',
             'role_id' => 'required'
         ];
@@ -36,6 +38,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
+            'email.unique:users,eail' => 'This name has been already added',
             'password.required' => 'Password is required',
             'role_id.required' => 'Role is required',
         ];

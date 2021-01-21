@@ -14,6 +14,7 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{$role->name}}">
+                    <input type="hidden" value="{{ $role->id }}" name="role_id">
                 </div>
                 <div style="text-align:center;">
                     <button type="submit" id="addRoles" class="btn btn-success">Save</button>

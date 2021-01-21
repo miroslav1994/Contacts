@@ -24,6 +24,7 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" id="email" name="email" class="form-control" placeholder="Email" value="{{$user->email}}">
+                    <input type="hidden" value="{{ $user->id }}" name="user_id">
                 </div>
                 <div class="form-group">
                     <label for="role_id">The tole</label>

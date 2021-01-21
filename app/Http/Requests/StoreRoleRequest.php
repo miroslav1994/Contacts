@@ -23,8 +23,9 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->request->get('role_id');
         return [
-            'name' => 'required|string',
+            'name' => 'required|unique:roles,name, '.$id,
         ];
 
     }
@@ -33,6 +34,7 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name.required' => 'A name is required',
+            "name.unique:roles,name" => "This name has been already added",
         ];
     }
 }

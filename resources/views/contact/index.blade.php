@@ -18,16 +18,23 @@
                 <th style="width:20% !important; text-align:center;">Edit</th>
                 <th style="width:20% !important; text-align:center;">Delete</th>
             </tr>
+            <?php $phones_string = ""; ?>
             @foreach ($contacts as $contact)
-            <?php
+                @foreach($contact->phones as $contact_phone)
+                    <?php
+                        $phones_string .= $contact_phone->phone . ";";
+                    ?>
+                @endforeach
+                <?php
+                    $phones_string = rtrim($phones_string, ";");
+                ?>
 
-
-            ?>
                 <tr>
                     <td style="width:5% !important">{{$contact->id}}</td>
-                    <td style="width:10% !important">{{$contact->name}}</td>
-                    <td style="width:12% !important">{{$contact->phone_type_id}}</td>
-                    <td style="width:10% !important">{{$contact->phone}}</td>
+                    <td style="width:10% !important">{{$contact->first_name}}</td>
+                    <td style="width:10% !important">{{$contact->last_name}}</td>
+                    <td style="width:10% !important"></td>
+                    <td style="width:10% !important">{{$phones_string}}</td>
                     <td style="width:30% !important">
                         <a href="/contacts/{{$contact->id}}/edit" class="btn btn-default">Edit</a><br />
 

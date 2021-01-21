@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Role;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoleRequest;
 
@@ -40,9 +40,8 @@ class RolesController extends Controller
     {
         $validated = $request->validated();
 
-        $role = new Role;
-        $role->name = $request->input('name');
-        $role->save();
+        $role = Role::create($request->all());
+
 
         return redirect('/roles')->with('success', 'The role is added successfully!');
     }
@@ -84,7 +83,7 @@ class RolesController extends Controller
         $role->name = $request->input('name');
         $role->save();
 
-        return redirect('/roles')->with('success', 'The role is added successfullyn');
+        return redirect('/roles')->with('success', 'The role is updated successfully');
     }
 
     /**
