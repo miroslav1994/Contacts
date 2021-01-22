@@ -3,12 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
-use App\Models\PhoneType;
 use App\Models\Phone;
+use App\Policies\ContactPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ContactsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+
+            if ($user->role->name != 'admin') {
+                return redirect()->back();
+            }
+
+
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +44,7 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        $phone_types = PhoneType::orderBy('id')->paginate(10);
-        return view('contact.create')->with('phone_types', $phone_types);
+        return view('contact.create');
     }
 
     /**
@@ -42,17 +58,17 @@ class ContactsController extends Controller
         $array_contacts = json_decode($request->input('contacts'));
         foreach($array_contacts as $contact) {
 
-            $contact_new = new Contact;
-            $contact_new->first_name = $contact->firstName;
-            $contact_new->last_name = $contact->lastName;
-            $contact_new->save();
+            $new_contact = Contact::create([
+                'first_name' => $contact->firstName,
+                'last_name' => $contact->lastName
+            ]);
 
-            for($i = 0;$i<count($contact->phones); $i++) {
-                $contact_phone = new Phone();
-                $contact_phone->contact_id = $contact_new->id;
-                $contact_phone->phone_type_id = $contact->phones[$i]->type;
-                $contact_phone->phone = $contact->phones[$i]->number;
-                $contact_phone->save();
+            foreach ($contact->phones as $phone) {
+                $phone = Phone::create([
+                    'type'=> $phone->type,
+                    'contact_id' => $new_contact->id,
+                    'phone' => $phone->number
+                ]);
             }
         }
 
@@ -102,6 +118,15 @@ class ContactsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::find($id);
+        $phones = $contact->phones;
+
+        foreach ($phones as $phone) {
+            $phone->delete();
+        }
+
+        $contact->delete();
+
+        return redirect('/contacts')->with('success', 'The contact is deleted successfully!');
     }
 }

@@ -26,7 +26,7 @@
                     <td style="width:5% !important">{{$user->id}}</td>
                     <td style="width:10% !important">{{$user->name}}</td>
                     <td style="width:12% !important">{{$user->email}}</td>
-                    <td style="width:10% !important">{{$user->roles->name}}</td>
+                    <td style="width:10% !important">@if(!empty($user->role)) {{$user->role->name}} @endif</td>
                     <td style="width:30% !important">
                         <a href="/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
 

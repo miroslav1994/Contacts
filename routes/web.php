@@ -15,11 +15,12 @@ Route::get('/', function () {
   return view('auth.login');
 });
 
-Route::resource('roles', 'RolesController');
-Route::resource('users', 'UsersController');
-Route::resource('phone_types', 'PhoneTypesController');
-Route::resource('contacts', 'ContactsController');
-Route::post('postajaxContacts', 'ContactsController@store');
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', 'RolesController');
+    Route::resource('users', 'UsersController');
+    Route::resource('contacts', 'ContactsController');
+    Route::post('postajaxContacts', 'ContactsController@store');
+});
 
 Auth::routes();
 

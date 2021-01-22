@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRoleRequest extends FormRequest
 {
@@ -23,18 +24,10 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->request->get('role_id');
-        return [
-            'name' => 'required|unique:roles,name, '.$id,
-        ];
-
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'A name is required',
-            "name.unique:roles,name" => "This name has been already added",
-        ];
+        if ($this->method() == 'POST') {
+            return ['name' => 'required|unique:roles,name'];
+        } elseif ($this->method() == 'PATCH') {
+            return ['name' => ['required', Rule::unique('roles')->ignore($this->role_id)]];
+        }
     }
 }

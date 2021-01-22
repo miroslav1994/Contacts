@@ -15,32 +15,31 @@
                 <th style="width:10% !important; text-align:center;">Last Name</th>
                 <th style="width:12% !important; text-align:center;">Phone type</th>
                 <th style="width:10% !important; text-align:center;">Phone</th>
-                <th style="width:20% !important; text-align:center;">Edit</th>
                 <th style="width:20% !important; text-align:center;">Delete</th>
             </tr>
-            <?php $phones_string = ""; ?>
+
             @foreach ($contacts as $contact)
+            <?php $phones_string = ""; ?>
+            <?php $phones_string_types = ""; ?>
                 @foreach($contact->phones as $contact_phone)
                     <?php
-                        $phones_string .= $contact_phone->phone . ";";
+                        $phones_string .= $contact_phone->phone . "\r\n";
+                        $phones_string_types .= $contact_phone->type . "\r\n";
                     ?>
                 @endforeach
                 <?php
-                    $phones_string = rtrim($phones_string, ";");
+                    $phones_string = rtrim($phones_string, "\r\n");
+                    $phones_string_types = rtrim($phones_string_types, "\r\n");
                 ?>
 
                 <tr>
                     <td style="width:5% !important">{{$contact->id}}</td>
                     <td style="width:10% !important">{{$contact->first_name}}</td>
                     <td style="width:10% !important">{{$contact->last_name}}</td>
-                    <td style="width:10% !important"></td>
-                    <td style="width:10% !important">{{$phones_string}}</td>
+                    <td style="">{{$phones_string_types}}</td>
+                    <td style="">{{$phones_string}}</td>
                     <td style="width:30% !important">
-                        <a href="/contacts/{{$contact->id}}/edit" class="btn btn-default">Edit</a><br />
-
-                    </td>
-                    <td style="width:30% !important">
-                        <form action="/users/{{$contact->id}}" method="POST">
+                        <form action="/contacts/{{$contact->id}}" method="POST">
                             {{ method_field('DELETE') }}
                             {!! csrf_field() !!}
                             <button type="submit" class="btn btn-danger">Delete</button>

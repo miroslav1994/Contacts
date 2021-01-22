@@ -39,9 +39,7 @@ class RolesController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $validated = $request->validated();
-
         $role = Role::create($request->all());
-
 
         return redirect('/roles')->with('success', 'The role is added successfully!');
     }

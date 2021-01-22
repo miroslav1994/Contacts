@@ -16,7 +16,7 @@ class Phone extends Model
      */
     protected $fillable = [
         'phone',
-        'phone_type_id',
+        'type',
         'contact_id'
     ];
 

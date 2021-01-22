@@ -42,19 +42,16 @@ class UsersController extends Controller
     {
         $validated = $request->validated();
 
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->password = $request->input('password');
-        $confirm_password = $request->input('confirm_password');
-        $user->email = $request->input('email');
-        $user->role_id = $request->input('role_id');
-        if($user->password == $confirm_password) {
-            $user->password = bcrypt($user->password);
-            $user->save();
-            return redirect('/users')->with('success', 'User is added successfuly!');
-        } else {
-            return redirect('/users/create')->with('error', 'Password and confirm password have to be the same!');
-        }
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'role_id' => $request->input('role_id'),
+            'password' => bcrypt($request->input('password'))
+
+        ]);
+
+        return redirect('/users')->with('success', 'User is added successfuly!');
+
     }
 
     /**
@@ -97,17 +94,10 @@ class UsersController extends Controller
         $validated = $request->validated();
 
         $user = User::find($id);
-        $user->name = $request->input('name');
-        $user->password = $request->input('password');
-        $confirm_password = $request->input('confirm_password');
-        $user->email = $request->input('email');
-        $user->role_id = $request->input('role_id');
-        if($user->password == $confirm_password) {
-            $user->save();
-            return redirect('/users')->with('success', 'User is updated successfully');
-        } else {
-            return redirect('/users/' . $user->id . '/edit')->with('error', 'Password and confirmed password have to be the same!');
-        }
+
+        $user->update($request->all());
+
+        return redirect('/users')->with('success', 'User is updated successfully');
     }
 
     /**

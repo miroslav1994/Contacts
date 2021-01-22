@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -23,24 +24,20 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->request->get('user_id');
+        if ($this->method() == 'POST') {
+            return [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|confirmed',
+                'role_id' => 'required'
+            ];
+        } elseif ($this->method() == 'PATCH') {
+            return [
+                'name' => 'required',
+                'email' => ['required', 'email', Rule::unique('users')->ignore($this->user_id)],
+                'role_id' => 'required'
+            ];
+        }
 
-        return [
-            'name' => 'required',
-            'email' => 'required|unique:users,email'.$id,
-            'password' => 'required',
-            'role_id' => 'required'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email is required',
-            'email.unique:users,eail' => 'This name has been already added',
-            'password.required' => 'Password is required',
-            'role_id.required' => 'Role is required',
-        ];
     }
 }

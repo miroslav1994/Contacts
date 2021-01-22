@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="confirm_password">Confirm password</label>
-                <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm password">
+                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Confirm password">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>

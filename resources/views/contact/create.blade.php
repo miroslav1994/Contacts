@@ -24,11 +24,7 @@
                 <table>
                     <tbody data-bind="foreach: phones">
                     <tr>
-                        <td><select data-bind='value: type' >
-                                @foreach($phone_types as $phone_type)
-                                    <option value="{{$phone_type->id}}">{{$phone_type->name}}</option>
-                                @endforeach
-                            </select></td>
+                        <td><input data-bind='value: type' ></td>
                         <td><input data-bind='value: number' /></td>
                         <td><a href='#' data-bind='click: $root.removePhone'>Delete</a></td>
                     </tr>

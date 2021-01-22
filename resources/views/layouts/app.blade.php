@@ -113,7 +113,12 @@
                     /* remind that 'data' is the response of the AjaxController */
                     success: function (data) {
                         $(".writeinfo").append(data.msg);
-                    }
+                        window.location.href = "/contacts";
+                    },
+                    complete: function (data) {
+                        $(".writeinfo").append(data.msg);
+                        window.location.href = "/contacts";
+                    },
                 });
             };
 

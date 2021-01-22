@@ -13,21 +13,21 @@
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{$user->name}}">
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="{{$user->password}}">
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm password</label>
                     <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm password" value="{{$user->password}}">
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" id="email" name="email" class="form-control" placeholder="Email" value="{{$user->email}}">
                     <input type="hidden" value="{{ $user->id }}" name="user_id">
                 </div>
                 <div class="form-group">
-                    <label for="role_id">The tole</label>
+                    <label for="role_id">The role</label>
                     <select id="role_id" name="role_id" class="form-control">
                             @foreach($roles as $role)
                                 <?php $selected = '' ?>;
