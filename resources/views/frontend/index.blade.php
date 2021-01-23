@@ -20,8 +20,10 @@
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
             @foreach($contacts as $contact)
-                <?php $phones_string = ""; ?>
-                <?php $phones_string_types = ""; ?>
+                <?php
+                    $phones_string = "";
+                    $phones_string_types = "";
+                ?>
                 @foreach($contact->phones as $contact_phone)
                     <?php
                         $phones_string .= $contact_phone->phone . "\r\n";

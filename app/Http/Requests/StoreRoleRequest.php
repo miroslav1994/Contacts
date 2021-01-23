@@ -24,10 +24,10 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'POST') {
+        if ($this->method() == 'POST')
             return ['name' => 'required|unique:roles,name'];
-        } elseif ($this->method() == 'PATCH') {
+         elseif ($this->method() == 'PATCH')
             return ['name' => ['required', Rule::unique('roles')->ignore($this->role_id)]];
-        }
+
     }
 }

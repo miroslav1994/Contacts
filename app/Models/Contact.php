@@ -22,6 +22,4 @@ class Contact extends Model
     public function phones() {
         return $this->hasMany('App\Models\Phone');
     }
-
-
 }

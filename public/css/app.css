@@ -1,0 +1,83 @@
+.center-align {
+    text-align:center;
+}
+
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: #F4F4F4;
+    overflow-x: hidden;
+    padding-top: 120px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.margin-input {
+    margin-bottom: 10% !important;
+}
+
+.back-btn-margin {
+    margin-left:31% !important
+}
+
+.btn-float {
+    float:right;
+}
+
+.full-width {
+    width:100%;
+}
+
+.td-width-5 {
+    width:5% !important;
+}
+
+.td-width-10 {
+    width:10% !important;
+}
+
+.td-width-12{
+    width:10% !important;
+}
+
+.td-width-20 {
+    width:20% !important;
+}
+
+.td-width-30 {
+    width:30% !important;
+}
+
+.width-div-40 {
+    width:40%;
+}

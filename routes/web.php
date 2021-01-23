@@ -19,6 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/administration', function () {
+    if(Auth::check()) {
+        return redirect('/home');
+    }
   return view('auth.login');
 });
 
@@ -30,7 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Auth::routes();
-
+Route::get('/logout', 'LoginController@logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

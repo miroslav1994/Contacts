@@ -16,9 +16,7 @@ class ContactPolicy
      */
     public function checkIsAdmin(User $user)
     {
-        if ($user->role->name == 'admin') {
-            return true;
-        }
+        if ($user->role->name == 'admin') return true;
 
         return false;
     }

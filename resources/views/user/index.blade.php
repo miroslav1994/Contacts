@@ -2,37 +2,33 @@
 
 @section('content')
     <div class="container">
-        <h1 style="text-align:center;">Users</h1>
+        <h1 class="center-align">Users</h1>
         <br /><br />
-        <a href="/users/create" class="btn btn-primary" style="float:right;"> Add the user</a>
+        <a href="/administration/users/create" class="btn btn-primary back-btn-margin"> Add the user</a>
         <br />
         <br />
         <br />
-        <table class="table table-striped table-hover" style="text-align:center;width:100%; ">
+        <table class="table table-striped table-hover center-align full-width" >
             <tr>
-                <th style="width:5% !important; text-align:center;">ID</th>
-                <th style="width:10% !important; text-align:center;">Name</th>
-                <th style="width:12% !important; text-align:center;">Email</th>
-                <th style="width:10% !important; text-align:center;">Role</th>
-                <th style="width:20% !important; text-align:center;">Edit</th>
-                <th style="width:20% !important; text-align:center;">Delete</th>
+                <th class="td-width-5 center-align">ID</th>
+                <th class="td-width-10 center-align">Name</th>
+                <th class="td-width-12 center-align">Email</th>
+                <th class="td-width-10 center-align">Role</th>
+                <th class="td-width-20 center-align">Edit</th>
+                <th class="td-width-20 center-align">Delete</th>
             </tr>
             @foreach ($users as $user)
-            <?php
-
-
-            ?>
                 <tr>
-                    <td style="width:5% !important">{{$user->id}}</td>
-                    <td style="width:10% !important">{{$user->name}}</td>
-                    <td style="width:12% !important">{{$user->email}}</td>
-                    <td style="width:10% !important">@if(!empty($user->role)) {{$user->role->name}} @endif</td>
-                    <td style="width:30% !important">
-                        <a href="/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
+                    <td class="td-width-5">{{$user->id}}</td>
+                    <td class="td-width-10">{{$user->name}}</td>
+                    <td class="td-width-12">{{$user->email}}</td>
+                    <td class="td-width-10">@if(!empty($user->role)) {{$user->role->name}} @endif</td>
+                    <td class="td-width-30">
+                        <a href="/administration/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
 
                     </td>
-                    <td style="width:30% !important">
-                        <form action="/users/{{$user->id}}" method="POST">
+                    <td class="td-width-30">
+                        <form action="/administration/users/{{$user->id}}" method="POST">
                             {{ method_field('DELETE') }}
                             {!! csrf_field() !!}
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -43,6 +39,4 @@
         </table>
         {{ $users->links() }}
     </div>
-
-
 @endsection

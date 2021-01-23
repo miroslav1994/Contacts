@@ -13,18 +13,14 @@ class ContactsController extends Controller
 {
     public function __construct()
     {
+        //Check if user is admin
         $this->middleware(function ($request, $next) {
-            $user = Auth::user();
 
-
-           if ($user->role->name != 'admin') {
-              return redirect()->back();
-           }
+            if(Gate::denies('checkIsAdmin', [Contact::class])) return redirect()->back();
 
             return $next($request);
         });
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +28,9 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::orderBy('id')->paginate(10);
+        $contacts = Contact::orderBy('first_name')
+                            ->orderBy('last_name')
+                            ->paginate(10);
         return view('contact.index')->with('contacts', $contacts);
     }
 
@@ -56,12 +54,12 @@ class ContactsController extends Controller
     {
         $array_contacts = json_decode($request->input('contacts'));
         foreach($array_contacts as $contact) {
-
+            //insert into table contacts
             $new_contact = Contact::create([
                 'first_name' => $contact->firstName,
                 'last_name' => $contact->lastName
             ]);
-
+            //insert into table phones
             foreach ($contact->phones as $phone) {
                 $phone = Phone::create([
                     'type'=> $phone->type,
@@ -71,42 +69,7 @@ class ContactsController extends Controller
             }
         }
 
-
         return redirect('/contacts')->with('success', 'Action is performed successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -119,11 +82,10 @@ class ContactsController extends Controller
     {
         $contact = Contact::find($id);
         $phones = $contact->phones;
-
+        //delete phones for this contact
         foreach ($phones as $phone) {
             $phone->delete();
         }
-
         $contact->delete();
 
         return redirect('/administration/contacts')->with('success', 'The contact is deleted successfully!');

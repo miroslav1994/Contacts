@@ -1,12 +1,10 @@
-
-
 @extends('layouts.app')
 
 @section('content')
-    <a href="/statuses" class="btn btn-default" style="margin-left:31% !important">Back</a>
-    <h1 style="text-align:center">Edit the role</h1>
-    <form action="/roles/{{$role->id}}" method="POST" enctype="multipart/form-data">
-        <div class="container" style="width:40%;">
+    <a href="/administration/roles" class="btn btn-default back-btn-margin">Back</a>
+    <h1 class="center-align">Edit the role</h1>
+    <form action="/administration/roles/{{$role->id}}" method="POST" enctype="multipart/form-data">
+        <div class="container width-div-40">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             {{ method_field('PATCH') }}
 
@@ -16,7 +14,7 @@
                     <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{$role->name}}">
                     <input type="hidden" value="{{ $role->id }}" name="role_id">
                 </div>
-                <div style="text-align:center;">
+                <div class="center-align">
                     <button type="submit" id="addRoles" class="btn btn-success">Save</button>
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </div>

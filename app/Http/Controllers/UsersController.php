@@ -17,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'asc')->paginate(10);
+        $users = User::orderBy('id', 'asc')
+                       ->paginate(10);
         return view('user.index')->with('users', $users);
     }
 
@@ -47,22 +48,10 @@ class UsersController extends Controller
             'email' => $request->input('email'),
             'role_id' => $request->input('role_id'),
             'password' => bcrypt($request->input('password'))
-
         ]);
 
         return redirect('/administration/users')->with('success', 'User is added successfuly!');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -94,7 +83,6 @@ class UsersController extends Controller
         $validated = $request->validated();
 
         $user = User::find($id);
-
         $user->update($request->all());
 
         return redirect('/administration/users')->with('success', 'User is updated successfully');

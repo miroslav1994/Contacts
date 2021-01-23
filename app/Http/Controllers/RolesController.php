@@ -16,7 +16,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id')->paginate(10);
+        $roles = Role::orderBy('name')
+                      ->paginate(10);
         return view('role.index')->with('roles', $roles);
     }
 
@@ -42,17 +43,6 @@ class RolesController extends Controller
         $role = Role::create($request->all());
 
         return redirect('/administration/roles')->with('success', 'The role is added successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

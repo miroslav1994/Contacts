@@ -19,5 +19,4 @@ class Phone extends Model
         'type',
         'contact_id'
     ];
-
 }

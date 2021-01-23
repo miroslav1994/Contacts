@@ -3,10 +3,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/users" class="btn btn-default" style="margin-left:31% !important">Back</a>
-    <h1 style="text-align:center">Edit the user</h1>
-    <form action="/users/{{$user->id}}" method="POST" enctype="multipart/form-data">
-        <div class="container" style="width:40%;">
+    <a href="/administration/users" class="btn btn-default back-btn-margin" >Back</a>
+    <h1 class="center:align">Edit the user</h1>
+    <form action="/administration/users/{{$user->id}}" method="POST" enctype="multipart/form-data">
+        <div class="container width-div-40">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             {{ method_field('PATCH') }}
                 <div class="form-group">
@@ -37,7 +37,7 @@
                             @endforeach
                     </select>
                 </div>
-                <div style="text-align:center;">
+                <div class="center-align">
                     <button type="submit" id="editCompany" class="btn btn-success">Save</button>
                     <button type="reset" class="btn btn-default">Cancel</button>
                 </div>
