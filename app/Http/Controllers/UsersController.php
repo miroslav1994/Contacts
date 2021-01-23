@@ -50,7 +50,7 @@ class UsersController extends Controller
 
         ]);
 
-        return redirect('/users')->with('success', 'User is added successfuly!');
+        return redirect('/administration/users')->with('success', 'User is added successfuly!');
 
     }
 
@@ -97,7 +97,7 @@ class UsersController extends Controller
 
         $user->update($request->all());
 
-        return redirect('/users')->with('success', 'User is updated successfully');
+        return redirect('/administration/users')->with('success', 'User is updated successfully');
     }
 
     /**
@@ -110,6 +110,6 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/users')->with('success', 'User is deleted successfuly');
+        return redirect('/administration/users')->with('success', 'User is deleted successfuly');
     }
 }

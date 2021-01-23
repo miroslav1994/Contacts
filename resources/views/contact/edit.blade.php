@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/users" class="btn btn-default" style="margin-left:31% !important">Back</a>
+    <a href="/administration/contacts" class="btn btn-default" style="margin-left:31% !important">Back</a>
     <h1 style="text-align:center">Edit the user</h1>
     <form action="/users/{{$user->id}}" method="POST" enctype="multipart/form-data">
         <div class="container" style="width:40%;">

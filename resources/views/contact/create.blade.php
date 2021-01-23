@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/users" class="btn btn-default" style="margin-left:31% !important">Back</a>
+    <a href="/administration/contacts" class="btn btn-default" style="margin-left:31% !important">Back</a>
     <h1 style="text-align:center">Add the contact</h1>
 <h2>Contacts</h2>
 <div id='contactsList'>

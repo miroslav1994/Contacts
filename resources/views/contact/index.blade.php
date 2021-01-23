@@ -4,7 +4,7 @@
     <div class="container">
         <h1 style="text-align:center;">Contacts</h1>
         <br /><br />
-        <a href="/contacts/create" class="btn btn-primary" style="float:right;"> Add the contact</a>
+        <a href="/administration/contacts/create" class="btn btn-primary" style="float:right;"> Add the contact</a>
         <br />
         <br />
         <br />

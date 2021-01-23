@@ -11,17 +11,26 @@
 |
 */
 
+use App\Models\Contact;
+
 Route::get('/', function () {
+    $contacts = Contact::orderBy('id')->paginate(10);
+    return view('frontend.index')->with('contacts', $contacts);;
+});
+
+Route::get('/administration', function () {
   return view('auth.login');
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles', 'RolesController');
-    Route::resource('users', 'UsersController');
-    Route::resource('contacts', 'ContactsController');
-    Route::post('postajaxContacts', 'ContactsController@store');
+    Route::resource('/administration/roles', 'RolesController');
+    Route::resource('/administration/users', 'UsersController');
+    Route::resource('/administration/contacts', 'ContactsController');
+    Route::post('/administration/postajaxContacts', 'ContactsController@store');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+

@@ -105,7 +105,7 @@
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     /* the route pointing to the post function */
-                    url: '/postajaxContacts',
+                    url: '/administration/postajaxContacts',
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {_token: CSRF_TOKEN, contacts:JSON.stringify(ko.toJS(self.contacts)),  message:$(".getinfo").val()},
@@ -117,7 +117,7 @@
                     },
                     complete: function (data) {
                         $(".writeinfo").append(data.msg);
-                        window.location.href = "/contacts";
+                        window.location.href = "/administration/contacts";
                     },
                 });
             };

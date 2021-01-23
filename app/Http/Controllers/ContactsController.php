@@ -126,6 +126,6 @@ class ContactsController extends Controller
 
         $contact->delete();
 
-        return redirect('/contacts')->with('success', 'The contact is deleted successfully!');
+        return redirect('/administration/contacts')->with('success', 'The contact is deleted successfully!');
     }
 }

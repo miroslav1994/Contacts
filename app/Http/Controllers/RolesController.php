@@ -41,7 +41,7 @@ class RolesController extends Controller
         $validated = $request->validated();
         $role = Role::create($request->all());
 
-        return redirect('/roles')->with('success', 'The role is added successfully!');
+        return redirect('/administration/roles')->with('success', 'The role is added successfully!');
     }
 
     /**
@@ -81,7 +81,7 @@ class RolesController extends Controller
         $role->name = $request->input('name');
         $role->save();
 
-        return redirect('/roles')->with('success', 'The role is updated successfully');
+        return redirect('/administration/roles')->with('success', 'The role is updated successfully');
     }
 
     /**
@@ -95,6 +95,6 @@ class RolesController extends Controller
         $role = Role::find($id);
         $role->delete();
 
-        return redirect('/roles')->with('success', 'The role is deleted successfully!');
+        return redirect('/administration/roles')->with('success', 'The role is deleted successfully!');
     }
 }

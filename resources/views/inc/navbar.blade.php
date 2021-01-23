@@ -28,11 +28,11 @@
 
             @if (!Auth::guest())
                 <ul class="nav navbar-nav">
-                <li class="" style="{{$display_nav}}"><a href="/roles">Roles</a></li>
-                <li class="" style="{{$display_nav}}"><a href="/users">Users</a></li>
+                <li class="" style="{{$display_nav}}"><a href="/administration/roles">Roles</a></li>
+                <li class="" style="{{$display_nav}}"><a href="/administration/users">Users</a></li>
                 @if(!empty(Auth::user()->role))
                     @if (Auth::user()->role->name == 'admin')
-                        <li><a href="/contacts">Contacts</a></li>
+                        <li><a href="/administration/contacts">Contacts</a></li>
                     @endif
                 @endif
                 </ul>
