@@ -14,11 +14,12 @@ class ContactPolicy
      * @param User $user
      * @return bool
      */
-    public function before(User $user)
+    public function checkIsAdmin(User $user)
     {
-        dd('yyy');
         if ($user->role->name == 'admin') {
             return true;
         }
+
+        return false;
     }
 }

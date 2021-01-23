@@ -17,10 +17,9 @@ class ContactsController extends Controller
             $user = Auth::user();
 
 
-            if ($user->role->name != 'admin') {
-                return redirect()->back();
-            }
-
+           if ($user->role->name != 'admin') {
+              return redirect()->back();
+           }
 
             return $next($request);
         });
