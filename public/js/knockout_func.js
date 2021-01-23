@@ -1,15 +1,42 @@
 $( document ).ready(function() {
-    var initialData = [
-        { firstName: "", lastName: "", phones: [
-        { type: "", number: "" },
-        { type: "", number: ""}]
+
+    var is_edit = $("#is_edit_id").val();
+    var url = "";;
+    if(is_edit == '1') {
+        url = '/administration/postAjaxContactsUpdate';
+        var types_phones = $("#type_phone").val();
+        var phones_number = $("#phone_number").val();
+        var phones_id = $("#phone_id").val();
+        var types_phones_arr = [];
+        var phones_number_arr = [];
+        var phones_id_arr = [];
+        types_phones_arr = types_phones.split(',');
+        phones_number_arr = phones_number.split(',');
+        phones_id_arr = phones_id.split(',');
+        var phones = [];
+        for(var i = 0; i<types_phones_arr.length; i++) {
+           phones[i] = {};
+           phones[i].type = types_phones_arr[i];
+           phones[i].number = phones_number_arr[i];
+           phones[i].phones_id = phones_id_arr[i];
         }
-    ];
+        var initialData = [
+                { contact_id: $("#contact_id_edit").val(), firstName: $("#firstName_contact").val(), lastName: $("#lastName_contact").val(), phones }
+            ];
+        } else {
+            url = '/administration/postAjaxContactsStore';
+            var initialData = [
+                { firstName: "", lastName: "", phones: [
+                        { type: "", number: "" }]
+                }
+            ];
+        }
+
 
     var ContactsModel = function(contacts) {
         var self = this;
         self.contacts = ko.observableArray(ko.utils.arrayMap(contacts, function(contact) {
-            return { firstName: contact.firstName, lastName: contact.lastName, phones: ko.observableArray(contact.phones) };
+            return { contact_id: contact.contact_id, firstName: contact.firstName, lastName: contact.lastName, phones: ko.observableArray(contact.phones) };
         }));
 
         self.addContact = function() {
@@ -40,22 +67,31 @@ $( document ).ready(function() {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     /* the route pointing to the post function */
-                    url: '/administration/postajaxContacts',
+                    url: url,
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: {_token: CSRF_TOKEN, contacts:JSON.stringify(ko.toJS(self.contacts)),  message:$(".getinfo").val()},
                     dataType: 'JSON',
                     /* remind that 'data' is the response of the AjaxController */
                     success: function (data) {
-                        window.location.href = "/contacts";
+                        if(data.success != false)
+                            window.location.href = "/administration/contacts";
+                        else {
+                            $("#mess_danger").show();
+                            $("#mess_danger").html(data.data);
+                        }
+                    },
+                    error: function (data) {
+                       console.log(data);
                     },
                     complete: function (data) {
-                        window.location.href = "/administration/contacts";
+                        //window.location.href = "/administration/contacts";
                     },
                 });
         };
         self.lastSavedJson = ko.observable("")
     };
+    console.log(initialData);
     ko.applyBindings(new ContactsModel(initialData));
 });
 

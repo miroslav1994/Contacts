@@ -1,44 +1,70 @@
+
+
 @extends('layouts.app')
 
 @section('content')
-    <a href="/administration/contacts" class="btn btn-default back-btn-margin">Back</a>
-    <h1 class="margin-center">Edit the user</h1>
-    <form action="/users/{{$user->id}}" method="POST" enctype="multipart/form-data">
-        <div class="container" style="width:40%;">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-            {{ method_field('PATCH') }}
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{$user->name}}">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="{{$user->password}}">
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Confirm password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm password" value="{{$user->password}}">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" value="{{$user->email}}">
-                </div>
-                <div class="form-group">
-                    <label for="role_id">The tole</label>
-                    <select id="role_id" name="role_id" class="form-control">
-                            @foreach($roles as $role)
-                                <?php $selected = '' ?>;
-                                @if($role->id == $user->role_id) <?php $selected = 'selected' ?>;
-                                @endif
-                                <option value="{{$role->id}}" <?php echo $selected; ?> >{{$role->name}}</option>
-                            @endforeach
-                    </select>
-                </div>
-                <div class="center-align">
-                    <button type="submit" id="editCompany" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-default">Cancel</button>
-                </div>
-            </div>
-    </form>
+<a href="/administration/contacts" class="btn btn-default" style="margin-left:31% !important">Back</a>
+<h1 class="center-align">Edit the contact</h1>
 
+<div id='contactsList' class="col-md-offset-3">
+    <h2>Contacts</h2>
+    <table class='contactsEditor'>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>`
+            <th>Phone numbers</th>
+        </tr>
+        <?php
+            $types_string = "";
+            $phones_string = "";
+            $phones_id_string = "";
+        ?>
+        @foreach($phones as $phone)
+            <?php
+                $types_string .= $phone->type . ",";
+                $phones_string .= $phone->phone . ",";
+                $phones_id_string .= $phone->id . ",";
+            ?>
+        @endforeach
+        <?php
+            $types_string = rtrim($types_string, ",");
+            $phones_string = rtrim($phones_string, ",");
+            $phones_id_string = rtrim($phones_id_string, ",");
+        ?>
+        <input type="hidden" id="is_edit_id" value="1" />
+        <input type="hidden" id="contact_id_edit" value="{{$contact->id}}" />
+        <input type="hidden" id="firstName_contact" value="{{$contact->first_name}}" />
+        <input type="hidden" id="lastName_contact" value="{{$contact->last_name}}" />
+        <input type="hidden" id="type_phone" name="type_phone[]" value="{{$types_string}}" />
+        <input type="hidden" id="phone_number" name="phones_number[]" value="{{$phones_string}}" />
+        <input type="hidden" id="phone_id" name="phone_id[]" value="{{$phones_id_string}}" />
+
+        <tbody data-bind="foreach: contacts">
+                <tr>
+            <td>
+                <input class="form-control" data-bind='value: firstName' placeholder="First name" value="{{$contact->first_name}}"/>
+                <div><a href='#' data-bind='click: $root.removeContact'>Delete</a></div>
+            </td>
+            <td>
+                <input class="form-control margin-input" data-bind='value: lastName' placeholder="Last name" value="{{$contact->last_name}}" />
+            </td>
+            <td>
+                <table>
+                    <tbody data-bind="foreach: phones">
+                    <tr>
+                        <td><input class="form-control" data-bind='value: type' placeholder="Phone type"></td>
+                        <td><input class="form-control" data-bind='value: number'  placeholder="Phone number"/></td>
+                        <td><a href='#' data-bind='click: $root.removePhone'>Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href='#' data-bind='click: $root.addPhone'>Add number</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <button class="btn btn-success"data-bind='click: save, enable: contacts().length > 0'>Save </button>
+    </p>
+</div>
 @endsection

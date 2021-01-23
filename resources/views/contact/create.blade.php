@@ -15,6 +15,7 @@
             <th>Phone numbers</th>
         </tr>
         <tbody data-bind="foreach: contacts">
+        <input type="hidden" id="is_edit_id" value="0" />
         <tr>
             <td>
                 <input class="form-control" data-bind='value: firstName' placeholder="First name" />
@@ -31,7 +32,7 @@
                     <tbody data-bind="foreach: phones">
                     <tr>
                         <td><input class="form-control" data-bind='value: type' placeholder="Phone type"></td>
-                        <td><input class="form-control" data-bind='value: number' placeholder="Phone number"/></td>
+                        <td><input class="form-control" data-bind='value: number'  placeholder="Phone number"/></td>
                         <td><a href='#' data-bind='click: $root.removePhone'>Delete</a></td>
                     </tr>
                     </tbody>

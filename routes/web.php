@@ -29,8 +29,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/administration/roles', 'RolesController');
     Route::resource('/administration/users', 'UsersController');
     Route::resource('/administration/contacts', 'ContactsController');
-    Route::post('/administration/postajaxContacts', 'ContactsController@store');
+    Route::post('/administration/postAjaxContactsStore', 'ContactsController@store');
+    Route::post('/administration/postAjaxContactsUpdate', 'ContactsController@update');
 });
+
+Route::post('/administration/searchContacts','ContactsController@search');
 
 Auth::routes();
 Route::get('/logout', 'LoginController@logout');

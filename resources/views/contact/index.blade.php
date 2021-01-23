@@ -15,6 +15,7 @@
                 <th class="td-width-10 center-align">Last Name</th>
                 <th class="td-width-12 center-align">Phone type</th>
                 <th class="td-width-10 center-align">Phone</th>
+                <th class="td-width-20 center-align">Edit</th>
                 <th class="td-width-20 center-align">Delete</th>
             </tr>
 
@@ -40,7 +41,10 @@
                     <td style="">{{$phones_string_types}}</td>
                     <td style="">{{$phones_string}}</td>
                     <td class="td-width-30">
-                        <form action="/contacts/{{$contact->id}}" method="POST">
+                        <a href="/administration/contacts/{{$contact->id}}/edit" class="btn btn-default">Edit</a><br />
+                    </td>
+                    <td class="td-width-30">
+                        <form action="/administration/contacts/{{$contact->id}}" method="POST">
                             {{ method_field('DELETE') }}
                             {!! csrf_field() !!}
                             <button type="submit" class="btn btn-danger">Delete</button>

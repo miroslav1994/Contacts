@@ -98,6 +98,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+
         return redirect('/administration/users')->with('success', 'User is deleted successfuly');
     }
 }

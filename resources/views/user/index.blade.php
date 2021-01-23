@@ -27,12 +27,16 @@
                         <a href="/administration/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
 
                     </td>
+
+
                     <td class="td-width-30">
-                        <form action="/administration/users/{{$user->id}}" method="POST">
-                            {{ method_field('DELETE') }}
-                            {!! csrf_field() !!}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        @if(Auth::id() != $user->id)
+                            <form action="/administration/users/{{$user->id}}" method="POST">
+                                {{ method_field('DELETE') }}
+                                {!! csrf_field() !!}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach

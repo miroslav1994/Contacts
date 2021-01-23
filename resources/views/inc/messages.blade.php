@@ -1,6 +1,6 @@
 @if(count($errors) > 0)
     @foreach($errors->all() as $error)
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" id="mess_danger">
             {{$error}}
         </div>
     @endforeach
@@ -17,3 +17,5 @@
         {{session('error')}}
     </div>
 @endif
+<div class="alert alert-danger" id="mess_danger" style="display:none;">
+</div>
