@@ -2,7 +2,7 @@
 
 @section('content')
     <a href="/administration/roles" class="btn btn-default back-btn-margin">Back</a>
-    <h1 style="center-align">Add new role</h1>
+    <h1 class="center-align">Add new role</h1>
     <form action="{{ action('RolesController@store') }}" method="POST" enctype="multipart/form-data">
         <div class="container width-div-40">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
@@ -16,5 +16,4 @@
             </div>
         </div>
     </form>
-
 @endsection

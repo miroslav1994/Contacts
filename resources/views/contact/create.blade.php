@@ -23,10 +23,7 @@
             </td>
             <td>
                 <input class="form-control margin-input" data-bind='value: lastName' placeholder="Last name" />
-
             </td>
-
-
             <td>
                 <table>
                     <tbody data-bind="foreach: phones">

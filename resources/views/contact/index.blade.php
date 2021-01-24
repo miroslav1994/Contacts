@@ -13,7 +13,7 @@
                 <th class="td-width-5 center-align">ID</th>
                 <th class="td-width-10 center-align">First Name</th>
                 <th class="td-width-10 center-align">Last Name</th>
-                <th class="td-width-12 center-align">Phone type</th>
+                <th class="td-width-8 center-align">Type</th>
                 <th class="td-width-10 center-align">Phone</th>
                 <th class="td-width-20 center-align">Edit</th>
                 <th class="td-width-20 center-align">Delete</th>
@@ -26,19 +26,19 @@
                 ?>
                 @foreach($contact->phones as $contact_phone)
                     <?php
-                        $phones_string .= $contact_phone->phone . "\r\n";
-                        $phones_string_types .= $contact_phone->type . "\r\n";
+                        $phones_string .= $contact_phone->phone . "\n";
+                        $phones_string_types .= $contact_phone->type . "\n";
                     ?>
                 @endforeach
                 <?php
-                    $phones_string = rtrim($phones_string, "\r\n");
-                    $phones_string_types = rtrim($phones_string_types, "\r\n");
+                    $phones_string = rtrim($phones_string, "\n");
+                    $phones_string_types = rtrim($phones_string_types, "\n");
                 ?>
                 <tr>
                     <td class="td-width-5">{{$contact->id}}</td>
                     <td class="td-width-10">{{$contact->first_name}}</td>
                     <td class="td-width-10">{{$contact->last_name}}</td>
-                    <td style="">{{$phones_string_types}}</td>
+                    <td class="td-width-8">{{$phones_string_types}}</td>
                     <td style="">{{$phones_string}}</td>
                     <td class="td-width-30">
                         <a href="/administration/contacts/{{$contact->id}}/edit" class="btn btn-default">Edit</a><br />

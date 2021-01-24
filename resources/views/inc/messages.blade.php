@@ -19,3 +19,4 @@
 @endif
 <div class="alert alert-danger" id="mess_danger" style="display:none;">
 </div>
+<input type="hidden" name="is_error" id="is_error" value="0">

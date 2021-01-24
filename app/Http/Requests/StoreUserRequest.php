@@ -24,6 +24,7 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
+        //If is insert, elseif - update
         if ($this->method() == 'POST') {
             return [
                 'name' => 'required',

@@ -64,7 +64,7 @@ class ContactsController extends Controller
         $array_contacts = json_decode($request->input('contacts'));
 
         foreach($array_contacts as $contact) {
-
+            //Check if first or last name are empty
             if(empty($contact->firstName) || empty($contact->lastName)) {
 
                 return Response::json(array(
@@ -72,7 +72,7 @@ class ContactsController extends Controller
                     'data'   => 'You cannot save contact without first name or last name'
                 ));
             }
-
+            //update contact
             $contact_edit = Contact::find($contact->contact_id);
             $contact_edit->first_name = $contact->firstName;
             $contact_edit->last_name = $contact->lastName;
@@ -80,7 +80,7 @@ class ContactsController extends Controller
 
             //insert into table phones
             foreach ($contact->phones as $phone) {
-
+                //Check if type or number are empty
                 if(empty($phone->type) || empty($phone->number)) {
 
                     return Response::json(array(
@@ -88,7 +88,7 @@ class ContactsController extends Controller
                         'data'   => 'You cannot save contact without type or phone'
                     ));
                 }
-
+                //Check if this number already exist
                 $phones_all = Phone::where('phone', '=', $phone->number)
                                     ->where('id', '!=', $phone->phones_id)
                                     ->first();
@@ -98,11 +98,11 @@ class ContactsController extends Controller
                         'data'   => 'Phone already exists'
                     ));
                 }
+                //insert phone
                 $phone_edit = Phone::find($phone->phones_id);
                 $phone_edit->type = $phone->type;
                 $phone_edit->phone = $phone->number;
                 $phone_edit->save();
-
             }
         }
     }
@@ -115,24 +115,24 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-
         $array_contacts = json_decode($request->input('contacts'));
 
         foreach($array_contacts as $contact) {
-
+            //Check if first or last name are empty
             if(empty($contact->firstName) || empty($contact->lastName)) {
                 return Response::json(array(
                     'success' => false,
                     'data'   => 'You cannot add contact with empty first name or last name'
                 ));
             }
-            //insert into table contacts
+
             $new_contact_arr = [
                 'first_name' => $contact->firstName,
                 'last_name' => $contact->lastName
             ];
             //insert into table phones
             foreach ($contact->phones as $key => $phone) {
+                //Check if type or number are empty
                 if(empty($phone->type) || empty($phone->number)) {
 
                     return Response::json(array(
@@ -140,11 +140,11 @@ class ContactsController extends Controller
                         'data'   => 'You cannot save contact without type or phone'
                     ));
                 }
-
+                //insert into table contacts
                 if ($key == 0) {
                     $new_contact = Contact::create($new_contact_arr);
                 }
-
+                //Check if this number already exist
                 $phones_all = Phone::where('phone', '=', $phone->number)->first();
                 if(!empty($phones_all)) {
                     return Response::json(array(
@@ -152,6 +152,7 @@ class ContactsController extends Controller
                         'data'   => 'Phone already exists'
                     ));
                 }
+                //insert phone
                 $phone = Phone::create([
                     'type'=> $phone->type,
                     'contact_id' => $new_contact->id,

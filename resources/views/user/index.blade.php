@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="center-align">Users</h1>
         <br /><br />
-        <a href="/administration/users/create" class="btn btn-primary back-btn-margin"> Add the user</a>
+        <a href="/administration/users/create" class="btn btn-primary back-btn-margin-user"> Add the user</a>
         <br />
         <br />
         <br />
@@ -25,10 +25,7 @@
                     <td class="td-width-10">@if(!empty($user->role)) {{$user->role->name}} @endif</td>
                     <td class="td-width-30">
                         <a href="/administration/users/{{$user->id}}/edit" class="btn btn-default">Edit</a><br />
-
                     </td>
-
-
                     <td class="td-width-30">
                         @if(Auth::id() != $user->id)
                             <form action="/administration/users/{{$user->id}}" method="POST">

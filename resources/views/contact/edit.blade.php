@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -40,27 +38,24 @@
         <input type="hidden" id="phone_id" name="phone_id[]" value="{{$phones_id_string}}" />
 
         <tbody data-bind="foreach: contacts">
-                <tr>
-            <td>
-                <input class="form-control" data-bind='value: firstName' placeholder="First name" value="{{$contact->first_name}}"/>
-                <div><a href='#' data-bind='click: $root.removeContact'>Delete</a></div>
-            </td>
-            <td>
-                <input class="form-control margin-input" data-bind='value: lastName' placeholder="Last name" value="{{$contact->last_name}}" />
-            </td>
-            <td>
-                <table>
-                    <tbody data-bind="foreach: phones">
-                    <tr>
-                        <td><input class="form-control" data-bind='value: type' placeholder="Phone type"></td>
-                        <td><input class="form-control" data-bind='value: number'  placeholder="Phone number"/></td>
-                        <td><a href='#' data-bind='click: $root.removePhone'>Delete</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <a href='#' data-bind='click: $root.addPhone'>Add number</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <input class="form-control" data-bind='value: firstName' placeholder="First name" value="{{$contact->first_name}}"/>
+                </td>
+                <td>
+                    <input class="form-control" data-bind='value: lastName' placeholder="Last name" value="{{$contact->last_name}}" />
+                </td>
+                <td>
+                    <table>
+                        <tbody data-bind="foreach: phones">
+                        <tr>
+                            <td><input class="form-control" data-bind='value: type' placeholder="Phone type"></td>
+                            <td><input class="form-control" data-bind='value: number'  placeholder="Phone number"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </tbody>
     </table>
     <p>

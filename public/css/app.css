@@ -67,7 +67,11 @@ body {
 }
 
 .td-width-12{
-    width:10% !important;
+    width:12% !important;
+}
+
+.td-width-8{
+    width:8% !important;
 }
 
 .td-width-20 {
@@ -80,4 +84,9 @@ body {
 
 .width-div-40 {
     width:40%;
+}
+
+
+.back-btn-margin-user {
+    margin-left:91% !important;
 }

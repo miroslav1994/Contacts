@@ -10,9 +10,11 @@ $( document ).ready(function() {
         var types_phones_arr = [];
         var phones_number_arr = [];
         var phones_id_arr = [];
+
         types_phones_arr = types_phones.split(',');
         phones_number_arr = phones_number.split(',');
         phones_id_arr = phones_id.split(',');
+
         var phones = [];
         for(var i = 0; i<types_phones_arr.length; i++) {
            phones[i] = {};
@@ -20,9 +22,11 @@ $( document ).ready(function() {
            phones[i].number = phones_number_arr[i];
            phones[i].phones_id = phones_id_arr[i];
         }
+
         var initialData = [
                 { contact_id: $("#contact_id_edit").val(), firstName: $("#firstName_contact").val(), lastName: $("#lastName_contact").val(), phones }
             ];
+
         } else {
             url = '/administration/postAjaxContactsStore';
             var initialData = [
@@ -31,7 +35,6 @@ $( document ).ready(function() {
                 }
             ];
         }
-
 
     var ContactsModel = function(contacts) {
         var self = this;
@@ -74,18 +77,28 @@ $( document ).ready(function() {
                     dataType: 'JSON',
                     /* remind that 'data' is the response of the AjaxController */
                     success: function (data) {
-                        if(data.success != false)
+                        if(data.success != false) {
+                            $("#mess_danger").hide();
+                            $("#mess_danger").html();
+                            $("#is_error").val("0");
                             window.location.href = "/administration/contacts";
-                        else {
+                        }  else {
                             $("#mess_danger").show();
                             $("#mess_danger").html(data.data);
+                            $("#is_error").val("1");
                         }
                     },
                     error: function (data) {
-                       console.log(data);
+                       if(data.responseText == "") {
+                           $("#mess_danger").hide();
+                           $("#mess_danger").html();
+                           $("#is_error").val("0");
+                       }
                     },
                     complete: function (data) {
-                        //window.location.href = "/administration/contacts";
+                        if ($('#is_error').val() == "0"){
+                            window.location.href = "/administration/contacts";
+                        }
                     },
                 });
         };

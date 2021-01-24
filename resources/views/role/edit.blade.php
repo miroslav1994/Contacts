@@ -7,7 +7,6 @@
         <div class="container width-div-40">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             {{ method_field('PATCH') }}
-
                 <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -20,5 +19,4 @@
                 </div>
             </div>
     </form>
-
 @endsection

@@ -4,7 +4,7 @@
 
 @section('content')
     <a href="/administration/users" class="btn btn-default back-btn-margin" >Back</a>
-    <h1 class="center:align">Edit the user</h1>
+    <h1 class="center-align">Edit the user</h1>
     <form action="/administration/users/{{$user->id}}" method="POST" enctype="multipart/form-data">
         <div class="container width-div-40">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>

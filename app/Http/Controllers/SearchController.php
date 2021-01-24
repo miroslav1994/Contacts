@@ -27,6 +27,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('search','');
+        //get contacts or phones
         $contacts = Contact::where('first_name','ILIKE','%'.$query.'%')
             ->orWhere('last_name','ILIKE','%'.$query.'%')
             ->get();
@@ -37,10 +38,12 @@ class SearchController extends Controller
         $searchResults = $contacts->merge($phones);
 
         $data = array();
+        //make array of contact id
         foreach ($searchResults as $results) {
             if(!empty($results->contact_id)) array_push($data, $results->contact_id);
             else array_push($data, $results->id);
         }
+        //Get all contacts which correspond to this search
         $contacts = Contact::whereIn('id', $data)->get();
         $data = [
             'contacts' => $contacts,
