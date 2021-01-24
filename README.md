@@ -40,7 +40,7 @@ You can now access the server at http://localhost:8000 or virtual host like 'con
 ## Usage
 
 * Bootstrap 3.0.2
-* Font-awesone 4.7.0
+* Font-awesome 4.7.0
 * CKEditor 4.14.0
 * JQuery 1.9.1
 * Knockout.js 3.5.1
