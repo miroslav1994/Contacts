@@ -80,6 +80,24 @@ class ContactsController extends Controller
 
             //insert into table phones
             foreach ($contact->phones as $phone) {
+
+                if(empty($phone->type) || empty($phone->number)) {
+
+                    return Response::json(array(
+                        'success' => false,
+                        'data'   => 'You cannot save contact without type or phone'
+                    ));
+                }
+
+                $phones_all = Phone::where('phone', '=', $phone->number)
+                                    ->where('id', '!=', $phone->phones_id)
+                                    ->first();
+                if(!empty($phones_all)) {
+                    return Response::json(array(
+                        'success' => false,
+                        'data'   => 'Phone already exists'
+                    ));
+                }
                 $phone_edit = Phone::find($phone->phones_id);
                 $phone_edit->type = $phone->type;
                 $phone_edit->phone = $phone->number;
@@ -97,24 +115,43 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
+
         $array_contacts = json_decode($request->input('contacts'));
 
         foreach($array_contacts as $contact) {
 
             if(empty($contact->firstName) || empty($contact->lastName)) {
-
                 return Response::json(array(
                     'success' => false,
                     'data'   => 'You cannot add contact with empty first name or last name'
                 ));
             }
             //insert into table contacts
-            $new_contact = Contact::create([
+            $new_contact_arr = [
                 'first_name' => $contact->firstName,
                 'last_name' => $contact->lastName
-            ]);
+            ];
             //insert into table phones
-            foreach ($contact->phones as $phone) {
+            foreach ($contact->phones as $key => $phone) {
+                if(empty($phone->type) || empty($phone->number)) {
+
+                    return Response::json(array(
+                        'success' => false,
+                        'data'   => 'You cannot save contact without type or phone'
+                    ));
+                }
+
+                if ($key == 0) {
+                    $new_contact = Contact::create($new_contact_arr);
+                }
+
+                $phones_all = Phone::where('phone', '=', $phone->number)->first();
+                if(!empty($phones_all)) {
+                    return Response::json(array(
+                        'success' => false,
+                        'data'   => 'Phone already exists'
+                    ));
+                }
                 $phone = Phone::create([
                     'type'=> $phone->type,
                     'contact_id' => $new_contact->id,
@@ -141,33 +178,5 @@ class ContactsController extends Controller
         $contact->delete();
 
         return redirect('/administration/contacts')->with('success', 'The contact is deleted successfully!');
-    }
-    /**
-     * Search for contact
-     *
-     */
-    public function search(Request $request)
-    {
-        dd('search');
-        $query = $request->get('search','');
-
-        $contacts = Contact::where('firstName','LIKE','%'.$query.'%')
-                            ->orWhere('firstName','LIKE','%'.$query.'%')
-                            ->get();
-        $phones = Phone::where('type', 'LIKE', '%'.$query.'%')
-                        ->orWhere('phone', 'LIKE', '%'.$query.'%')
-                        ->get();
-
-        $searchResults = $contacts->merge($phones);
-
-        $data = array();
-        foreach ($searchResults as $results) {
-            array_push($data, $results->od);
-        }
-        if(count($data))
-            return $data;
-        else
-            return ['value'=>'No Result Found','id'=>''];
-
     }
 }

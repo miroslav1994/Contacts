@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/administration/postAjaxContactsUpdate', 'ContactsController@update');
 });
 
-Route::post('/administration/searchContacts','ContactsController@search');
+Route::post('/searchContacts','SearchController@search');
 
 Auth::routes();
 Route::get('/logout', 'LoginController@logout');

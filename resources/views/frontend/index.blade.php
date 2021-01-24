@@ -3,12 +3,13 @@
 @section('content')
 <section>
     <!--for demo wrap-->
-    <h1>Contacts</h1>
+    <h1><a href="/" style="text-decoration: none; color:white;">Contacts</a></h1>
 
-    <form action="/searchContacts" method="POST" role="Searchstudent">
+    <form action="{{ action('SearchController@search') }}" method="POST" role="SearchContact">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
         <div class="col-md-offset-5 col-md-3 ">
             <div class="input-group">
-                <input type="text" class="form-control" name="search"  placeholder="Search"> <span class="input-group-btn">
+                <input type="text" class="form-control" name="search" @if(!empty($search)) value="{{$search}} @endif" placeholder="Search"> <span class="input-group-btn">
                  <button type="submit" class="btn btn-default">
                      <span class="glyphicon glyphicon-search"></span>
                  </button>
